@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">AssistantAPI-Kotlin</string>
+
+    <!-- bottom_nav_menu -->
+    <string name="bottom_nav_menu_chat">Chat</string>
+    <string name="bottom_nav_menu_settings">Settings</string>
+    <!-- -->
+
+    <!-- -->
+    <!-- -->
 </resources>
