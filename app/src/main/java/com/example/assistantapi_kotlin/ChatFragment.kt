@@ -1,11 +1,16 @@
 package com.example.assistantapi_kotlin
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.aallam.openai.api.BetaOpenAI
 import com.aallam.openai.api.assistant.AssistantId
 import com.aallam.openai.api.chat.ChatCompletion
@@ -25,6 +30,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -39,6 +45,16 @@ class ChatFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var mainActivity: MainActivity? = null
+
+    private var messageId = 0
+
+    private lateinit var mMessageRecycler: RecyclerView
+    private lateinit var mMessageAdapter: MessageListAdapter
+
+    private var messageList = listOf<Message>()
+
+    private val chatGpt = User("ChatGpt", "ChatGpt")
+    private val user = User("User", "User")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +74,8 @@ class ChatFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentChatBinding.inflate(inflater, container, false)
+        mMessageRecycler = binding.recyclerChat
+
         return binding.root
     }
 
@@ -66,8 +84,21 @@ class ChatFragment : Fragment() {
 
         mainActivity = activity as MainActivity?
 
-        binding.button.setOnClickListener {
-            startChat("あなたは誰ですか？")
+        initMessage()
+
+        // startChat("あなたは誰ですか？")
+
+        binding.chatgptChatMessageEdittext.setOnClickListener {
+            if(binding.chatgptChatMessageEdittext.text.toString() != "") {
+                hideKeyboard()
+            }
+        }
+
+        binding.recyclerChat.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                hideKeyboard()
+            }
+            false
         }
     }
 
@@ -103,6 +134,38 @@ class ChatFragment : Fragment() {
             Log.d(TAG, chatGptResponseText?.text?.value.toString())
 
         }
+    }
+
+    private fun displayMessageList() {
+        ++messageId
+
+        mMessageAdapter = MessageListAdapter(requireContext(), messageList)
+
+        mMessageRecycler.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = mMessageAdapter
+        }
+    }
+
+    private fun initMessage() {
+
+        messageList += Message(messageId.toString(), "何かお困りごとはありますか？", chatGpt, getTime())
+
+        displayMessageList()
+    }
+
+    private fun getTime(): String {
+        val currentDateTime = LocalDateTime.now()
+
+        val hour = currentDateTime.hour
+        val minute = currentDateTime.minute
+
+        return "$hour:$minute"
+    }
+
+    private fun hideKeyboard(){
+        val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(binding.chatgptChatMessageEdittext.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
     }
 
     companion object {

@@ -7,5 +7,9 @@
     <!-- -->
 
     <!-- -->
+    <string name="chatgpt_chat_message_hint_string">メッセージを入力</string>
+    <!-- -->
+
+    <!-- -->
     <!-- -->
 </resources>
