@@ -66,4 +66,6 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
     implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
     implementation("com.google.code.gson:gson:2.11.0")
+    implementation("com.aallam.openai:openai-client:3.7.2")
+    implementation("io.ktor:ktor-client-android:2.0.0")
 }
