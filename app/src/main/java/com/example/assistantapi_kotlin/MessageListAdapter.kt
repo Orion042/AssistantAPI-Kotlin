@@ -1,17 +1,25 @@
 package com.example.assistantapi_kotlin
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.time.LocalDateTime
 
 class MessageListAdapter(
     private val mContext: Context,
     private val mMessageList: List<Message>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private val handler = Handler(Looper.getMainLooper())
 
     override fun getItemCount(): Int {
         return mMessageList.size
@@ -66,13 +74,26 @@ class MessageListAdapter(
         private val timeText: TextView = itemView.findViewById(R.id.text_chat_timestamp_chatgpt)
         private val nameText: TextView = itemView.findViewById(R.id.text_chat_user_chatgpt)
         private val profileImage: ImageView = itemView.findViewById(R.id.image_chat_profile_chatgpt)
+        private val chatDateTextView: TextView = itemView.findViewById(R.id.text_chat_date_chatgpt)
 
         fun bind(message: Message) {
             messageText.text = message.getMessage()
             timeText.text = message.getCreatedAt()
             nameText.text = message.getSender().getNickname()
             profileImage.setImageResource(R.drawable.chatgpt_image)
+            if (chatDateTextView.text != getMonthAndDay()) {
+                chatDateTextView.text = getMonthAndDay()
+            }
         }
+    }
+
+    private fun getMonthAndDay(): String {
+        val currentDateTime = LocalDateTime.now()
+
+        val month = currentDateTime.monthValue.toString()
+        val day = currentDateTime.dayOfMonth.toString()
+
+        return "${month}月${day}日"
     }
 
     companion object {

@@ -2,6 +2,8 @@ package com.example.assistantapi_kotlin
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -51,10 +53,12 @@ class ChatFragment : Fragment() {
     private lateinit var mMessageRecycler: RecyclerView
     private lateinit var mMessageAdapter: MessageListAdapter
 
-    private var messageList = listOf<Message>()
+    private var messageList: ArrayList<Message> = arrayListOf()
 
-    private val chatGpt = User("ChatGpt", "ChatGpt")
+    private val chatGpt = User("Chat-GPT", "Chat-GPT")
     private val user = User("User", "User")
+
+    private val handler: Handler = Handler(Looper.getMainLooper())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,18 +83,38 @@ class ChatFragment : Fragment() {
         return binding.root
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelableArrayList("messageList", messageList)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         mainActivity = activity as MainActivity?
 
-        initMessage()
+        if(savedInstanceState != null) {
+            messageList = savedInstanceState.getParcelableArrayList("messageList") ?: arrayListOf()
+            displayMessageList()
+        }
+        else {
+            initMessage()
+        }
 
-        // startChat("あなたは誰ですか？")
-
-        binding.chatgptChatMessageEdittext.setOnClickListener {
+        binding.chatgptChatSendImageview.setOnClickListener {
             if(binding.chatgptChatMessageEdittext.text.toString() != "") {
+
                 hideKeyboard()
+
+                messageList.add(Message(messageId.toString(), binding.chatgptChatMessageEdittext.text.toString(), user, getTime()))
+
+                binding.chatgptChatMessageEdittext.setText("")
+
+                messageList.add(Message(messageId.toString(), "...", chatGpt, getTime()))
+
+                displayMessageList()
+
+                startChat(binding.chatgptChatMessageEdittext.text.toString())
             }
         }
 
@@ -133,25 +157,35 @@ class ChatFragment : Fragment() {
 
             Log.d(TAG, chatGptResponseText?.text?.value.toString())
 
+            removeLastMessage()
+
+            messageList.add(Message(messageId.toString(), chatGptResponseText?.text?.value.toString(), chatGpt, getTime()))
+
+            displayMessageList()
         }
     }
 
     private fun displayMessageList() {
         ++messageId
 
-        mMessageAdapter = MessageListAdapter(requireContext(), messageList)
+        handler.post {
+            mMessageAdapter = MessageListAdapter(requireContext(), messageList)
 
-        mMessageRecycler.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = mMessageAdapter
+            mMessageRecycler.apply {
+                layoutManager = LinearLayoutManager(requireContext())
+                adapter = mMessageAdapter
+            }
         }
     }
 
     private fun initMessage() {
-
-        messageList += Message(messageId.toString(), "何かお困りごとはありますか？", chatGpt, getTime())
+        messageList.add(Message(messageId.toString(), "何かお困りごとはありますか？", chatGpt, getTime()))
 
         displayMessageList()
+    }
+
+    private fun removeLastMessage() {
+        messageList.removeLast()
     }
 
     private fun getTime(): String {
