@@ -6,8 +6,17 @@
     <string name="bottom_nav_menu_settings">Settings</string>
     <!-- -->
 
-    <!-- -->
+    <!-- ChatFragment-->
     <string name="chatgpt_chat_message_hint_string">メッセージを入力</string>
+    <!-- -->
+
+    <!-- SettingsFragment-->
+    <string name="assistant_settings_title_string">アシスタント設定メニュー</string>
+    <string name="assistant_name_string">アシスタント名</string>
+    <string name="assistant_id_string">アシスタントid</string>
+    <string name="assistant_instruction_string">インストラクション</string>
+    <string name="assistant_get_assistants_button_string">アシスタント\n一覧確認</string>
+    <string name="assistant_create_new_assistant_button_string">アシスタント\n新規作成</string>
     <!-- -->
 
     <!-- -->

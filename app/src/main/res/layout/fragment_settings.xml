@@ -1,13 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SettingsFragment">
 
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello settings" />
+        android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/assistantSettingsTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="28dp"
+            android:text="@string/assistant_settings_title_string"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/assistantNameTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="36dp"
+            android:textSize="16sp"
+            android:text="@string/assistant_name_string"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/assistantSettingsTitleTextView" />
+
+        <TextView
+            android:id="@+id/assistantNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="50dp"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@+id/assistantNameTitleTextView"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/assistantIdTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="36dp"
+            android:text="@string/assistant_id_string"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/assistantNameTextView" />
+
+        <TextView
+            android:id="@+id/assistantIdTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="25dp"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/assistantIdTitleTextView" />
+
+        <TextView
+            android:id="@+id/assistantInstructionTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="36dp"
+            android:text="@string/assistant_instruction_string"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/assistantIdTextView" />
+
+        <TextView
+            android:id="@+id/assistantInstructionTextView"
+            android:layout_width="300dp"
+            android:layout_height="150dp"
+            android:scrollbars="vertical"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="25dp"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/assistantInstructionTitleTextView" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5"/>
+
+        <Button
+            android:id="@+id/assistantGetAssistantsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="@string/assistant_get_assistants_button_string"
+            android:backgroundTint="@color/purple_500"
+            android:textColor="@color/white"
+            app:iconTint="@color/white"
+            android:textSize="12sp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="145dp"
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            app:icon="@drawable/baseline_collections_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/guideline"/>
+
+        <Button
+            android:id="@+id/assistantCreateNewAssistantButton"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/purple_500"
+            android:textColor="@color/white"
+            app:iconTint="@color/white"
+            android:text="@string/assistant_create_new_assistant_button_string"
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            app:icon="@drawable/baseline_create_24"
+            android:textSize="12sp"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="145dp"
+            app:layout_constraintStart_toEndOf="@+id/guideline"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

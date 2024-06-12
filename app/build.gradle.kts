@@ -68,4 +68,5 @@ dependencies {
     implementation("com.google.code.gson:gson:2.11.0")
     implementation("com.aallam.openai:openai-client:3.7.2")
     implementation("io.ktor:ktor-client-android:2.0.0")
+    implementation("com.google.android.material:material:1.9.0")
 }
