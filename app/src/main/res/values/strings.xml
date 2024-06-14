@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">AssistantAPI-Kotlin</string>
 
+    <string name="cancel_string">キャンセル</string>
+
     <!-- bottom_nav_menu -->
     <string name="bottom_nav_menu_chat">Chat</string>
     <string name="bottom_nav_menu_settings">Settings</string>
@@ -12,11 +14,14 @@
 
     <!-- SettingsFragment-->
     <string name="assistant_settings_title_string">アシスタント設定メニュー</string>
-    <string name="assistant_name_string">アシスタント名</string>
-    <string name="assistant_id_string">アシスタントid</string>
-    <string name="assistant_instruction_string">インストラクション</string>
+    <string name="assistant_name_string"><u>アシスタント名</u></string>
+    <string name="assistant_id_string"><u>アシスタントid</u></string>
+    <string name="assistant_instruction_string"><u>インストラクション</u></string>
     <string name="assistant_get_assistants_button_string">アシスタント\n一覧確認</string>
     <string name="assistant_create_new_assistant_button_string">アシスタント\n新規作成</string>
+    <string name="assistant_edit_name_string">アシスタント名を入力</string>
+    <string name="assistant_edit_instruction_string">システムプロンプトを入力</string>
+    <string name="create_string">作成</string>
     <!-- -->
 
     <!-- -->
