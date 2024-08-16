@@ -108,13 +108,15 @@ class ChatFragment : Fragment() {
 
                 messageList.add(Message(messageId.toString(), binding.chatgptChatMessageEdittext.text.toString(), user, getTime()))
 
+                val userMessage = binding.chatgptChatMessageEdittext.text.toString()
+
                 binding.chatgptChatMessageEdittext.setText("")
 
                 messageList.add(Message(messageId.toString(), "...", chatGpt, getTime()))
 
                 displayMessageList()
 
-                startChat(binding.chatgptChatMessageEdittext.text.toString())
+                startChat(userMessage)
             }
         }
 
@@ -162,6 +164,9 @@ class ChatFragment : Fragment() {
             messageList.add(Message(messageId.toString(), chatGptResponseText?.text?.value.toString(), chatGpt, getTime()))
 
             displayMessageList()
+
+            Log.d(TAG, "userMessage: $userMessage")
+            showMessageList(messageList)
         }
     }
 
@@ -175,6 +180,12 @@ class ChatFragment : Fragment() {
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = mMessageAdapter
             }
+        }
+    }
+
+    private fun showMessageList(messageList: ArrayList<Message>) {
+        for (i in messageList.indices) {
+            Log.d(TAG, "MessageList[$i]: ${messageList[i].mMessage}")
         }
     }
 

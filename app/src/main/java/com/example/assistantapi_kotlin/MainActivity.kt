@@ -104,14 +104,14 @@ class MainActivity : AppCompatActivity() {
 
                     writeIdToJson(this@MainActivity, "file_id", knowledgeBase.id.id)
 
-                    chatGptInstruction = "あなたは、ユーザに寄り添い会話を盛り上げることができるAIであり、ユーザとのやり取りはできるだけ短く簡潔に返信してください。"
+                    chatGptInstruction = "あなたは、ユーザに寄り添い会話を盛り上げることができるAIであり、ユーザとのやり取りはできるだけ短く簡潔に返信してください。必ず日本語で返答を生成してください。"
 
                     val assistant = openAi?.assistant(
                         request = AssistantRequest(
                             name = "Assistant Test",
                             instructions = chatGptInstruction,
                             tools = listOf(AssistantTool.RetrievalTool),
-                            model = ModelId("gpt-3.5-turbo"),
+                            model = ModelId("gpt-4o-mini"),
                             fileIds = listOf(FileId(readIdFromJson(this@MainActivity, "file_id")))
                         )
                     )
